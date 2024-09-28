@@ -7,6 +7,9 @@ package no.hvl.dat100.matriser;
  */
 
 class MatrixUtils2{
+	// hide constructor
+	private MatrixUtils2() {}
+	
 	// clone a 2d int matrix
 	public static int[][] cloneMatrix(int[][] mat) {
 		if(mat == null) { throw new IllegalArgumentException("Matrix must be non-null"); }
@@ -21,7 +24,7 @@ class MatrixUtils2{
 	
 	// make a 2d int matrix	of same dimension as input
 	// allows different sized rows
-	public static int[][] cloneMatrixStructure(int[][] mat) {	
+	public static int[][] cloneMatrixStructure(int[][] mat) {
 		if(mat == null) { throw new IllegalArgumentException("Matrix must be non-null"); }
 		
 		int n = mat.length;
@@ -43,6 +46,32 @@ class VectorUtils{
 		return "[" + java.util.Arrays.toString(a) + "]";
 	}
 	
+	public static boolean arrayEquals(int[] a, int[] b) {
+		if(a == null ^ b == null) {
+			return false;
+		}
+		if(a == null) {
+			return false;
+		}
+		
+		// get inner array lengths
+		int m1 = a.length;
+		int m2 = b.length;
+		
+		// return false if lengths differ
+		if(m1 != m2) {
+			return false;
+		}
+		
+		for(int j=0; j<m1; j++) {
+			if(a[j] != b[j]) {
+				return false;
+			}
+		}
+		
+		return true;
+	}	
+	
 	// ta dotproduct mellom to vektorer
 	public static int dotProduct(int[] a, int[] b) {
 		// krav at vektorer må ha lik lengde
@@ -59,9 +88,18 @@ class VectorUtils{
 		return sum;
 	}	
 };
+
+class Vec3f{
+	public static float[] dot(float[] a, float[] b) {
+		return a[0]*b[0] + a[1]*b[1] + a[2]*b[2];
+	}
+}
 */
 
 public class Matriser {	
+	// 
+	private Matriser() {}
+	
 	// a)
 	public static void skrivUt(int[][] matrise) {
 		// bruk tilStreng metoden
@@ -83,9 +121,6 @@ public class Matriser {
 		return sBuilder.toString();
 	}
 
-
-			
-		
 	// c)
 	public static int[][] skaler(int tall, int[][] matrise) {
 		// allocate a new matrix for result variable
@@ -107,6 +142,13 @@ public class Matriser {
 		// return MatrixUtils.equals(a, b);
 		// retirm java.util.Arrays.deepEquals(a, b);
 		
+		if(a == null ^ b == null) {
+			return false;
+		}
+		if(a == null) {
+			return false;
+		}		
+		
 		// get outer array lengths
 		int n1 = a.length;
 		int n2 = b.length;
@@ -117,8 +159,11 @@ public class Matriser {
 		}
 		
 		for(int i=0; i<n1; i++) {
-			if(((a[i] == null) ^ (b[i] == null)) || ((a[i] == null) ^ (b[i] == null))) {
+			if((a[i] == null) ^ (b[i] == null)) {
 				return false;
+			}
+			if(a[i] == null && b[i] == null) {
+				continue;
 			}
 			
 			// get inner array lengths

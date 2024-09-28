@@ -4,7 +4,7 @@ public class Tabeller {
 
 	// a)
 	public static void skrivUt(int[] tabell) {
-		System.out.println("skrivUt(...)");
+		//System.out.println("skrivUt(...)");
 		int n = tabell.length;
 		for(int i=0; i<n; i++) {
 			if(i > 0) {

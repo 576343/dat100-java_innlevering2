@@ -184,7 +184,10 @@ public class MatrixUtils {
 	// - matrices must have non-zero dimensions 
 	// - a must have same number of columns that b has rows
 	public static int[][] multiply(int[][] a, int[][] b) {
-		if(a == null || b == null) {
+		if((a == null) ^ (b == null)) {
+			throw new IllegalArgumentException("Matrix must be non-null");
+		}
+		if(a == null) {
 			throw new IllegalArgumentException("Matrix must be non-null");
 		}
 		
@@ -197,7 +200,7 @@ public class MatrixUtils {
 		}
 		
 		// get matrix dimensions, n = rows, m = cols
-		int aNumCols = (aNumRows > 0) ? a[0].length : 0;			
+		int aNumCols = a[0].length;			
 
 		// check that number of cols in a matches number of rows in b
 		if(bNumRows != aNumCols) {
@@ -250,6 +253,13 @@ public class MatrixUtils {
 		}
 		
 		for(int i=0; i<n1; i++) {
+			if((a[i] == null) ^ (b[i] == null)){
+				return false;
+			}
+			if(a[i] == null){
+				return false;
+			}
+		
 			// get inner array lengths
 			int m1 = a[i].length;
 			int m2 = b[i].length;
@@ -259,10 +269,6 @@ public class MatrixUtils {
 				return false;
 			}
 			
-			
-			// if(!Arrays.equals(a[i], b[i])){
-			// 		return false;
-			// }
 			for(int j=0; j<m1; j++) {
 				if(a[i][j] != b[i][j]) {
 					return false;
